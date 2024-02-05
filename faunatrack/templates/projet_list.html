@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1> List des projets </h1>
+    {% for projet in project_list %}
+        <p> {{ projet.nom }}</p>
+    {%  empty %}
+        <p> Aucun projet trouvé</p>
+    {% endfor %}
+{% endblock content%}
