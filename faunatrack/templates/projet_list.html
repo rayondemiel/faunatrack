@@ -1,9 +1,27 @@
 {% extends "base.html" %}
+
 {% block content %}
-    <h1> List des projets </h1>
+    <h1 class="text-2xl font-bold mb-4">Liste des projets FaunaTrack</h1>
+    <p>{{ ma_var }}</p>
+    <a href="{% url 'create_projet' %}" class="bg-blue-500 text-white py-2 px-4 rounded">Créer un nouveau projet</a>
+
+    <!-- Form to create a new project -->
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="id_nom" class="block text-sm font-medium text-gray-700">Nom du projet</label>
+            <input type="text" name="nom" id="id_nom" class="mt-1 p-2 border rounded-md w-full">
+        </div>
+        <!-- Add more form fields as needed -->
+
+        <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded">Créer le projet</button>
+    </form>
+
     {% for projet in project_list %}
-        <p> {{ projet.nom }}</p>
-    {%  empty %}
-        <p> Aucun projet trouvé</p>
+        <ul class="list-disc mt-4">
+            <li><a href="{% url 'projet' projet.pk %}" class="text-blue-500">{{ projet.nom }}</a></li>
+        </ul>
+    {% empty %}
+        <p>Il n'y a pas de projets recensés... :(</p>
     {% endfor %}
-{% endblock content%}
+{% endblock content %}

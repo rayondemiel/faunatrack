@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
+from faunatrack.validators import validate_latitude
 
 # Create your models here.
 class Espece(models.Model):
@@ -48,13 +49,13 @@ class Scientifique(models.Model):
 
 
 class Observation(models.Model):
-    date_observation = models.DateTimeField()
+    date_observation = models.DateTimeField(blank=True, null=True)
     espece = models.ForeignKey(Espece, related_name="observations", on_delete=models.CASCADE)
     quantite = models.IntegerField()
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, validators=[validate_latitude], help_text="je suis l'aide") # own validator
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, validators=[MaxValueValidator(limit_value=180), MinValueValidator(limit_value=-180)])
     notes = models.TextField(default="Pas de notes")
-    photos = models.ImageField(upload_to="faunatrack/medias/observations_photos/", null=True, blank=True)
+    photos = models.ImageField(upload_to="faunatrack/static/observations_photos/", null=True, blank=True)
     scientifique = models.ForeignKey(Scientifique, related_name="observation", on_delete=models.SET_NULL, null=True)
 
     def __str__(self):

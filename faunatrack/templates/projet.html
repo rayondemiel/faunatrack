@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="mb-4">
+        <a href="{% url 'projet_update' project.pk %}" class="text-blue-500 mr-2">Update</a>
+        <a href="{% url 'delete_project' project.pk %}" class="text-red-500">Delete</a>
+    </div>
+
+    <div class="px-4 sm:px-0">
+        <h3 class="text-2xl font-semibold leading-7 text-gray-900"><b>{{ project.nom }}</b> ({{ project.etat }})</h3>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Détails du projet.</p>
+    </div>
+
+    <div class="mt-6 border-t border-gray-100">
+        <dl class="divide-y divide-gray-100">
+            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900">Description</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ project.description }}</dd>
+            </div>
+        </dl>
+
+        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt class="text-sm font-medium leading-6 text-gray-900">Date de démarrage du projet</dt>
+            <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ project.date_debut }}</dd>
+        </div>
+    </div>
+
+    <hr class="my-6"/>
+
+    <div>
+        <h2 class="text-xl font-semibold mb-2">Observations</h2>
+        <a href="{% url 'create_observation' %}" class="text-blue-500">Ajouter</a>
+
+        <ul class="mt-4">
+            {% for observation in project.observations.all %}
+                <li>
+                    <a href="" class="text-blue-500">{{ observation.espece.nom_commun }}</a>
+                    <div class="mt-2">
+                        {% if observation.photos %}
+                            <img src="{{ observation.photos.url }}" alt="image" class="w-12 h-12 rounded-full"/>
+                        {% else %}
+                            <p>Pas de photos</p>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

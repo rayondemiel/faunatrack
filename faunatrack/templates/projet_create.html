@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{%  block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <button type="submit"> Créer le projet </button>
+    </form>
+{% endblock content %}

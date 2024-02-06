@@ -119,7 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'faunatrack/static/'  # pas forcement le mieux, mais la on la mit comme ca dans le model
 
 STATIC_ROOT = BASE_DIR / "static"
 

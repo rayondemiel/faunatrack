@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p> Etes vous sur de vouloir supprimer ce {{ model }}</p>
+        <button type="submit" class="text-red-500"> Oui! </button>
+        <a href="{% url 'projet_list' %}"> Annuler</a>
+    </form>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Liste des especes au sein du programme FaunaTrack</h1>
+    <p>{{ nb_espece }}</p>
+    {% for espece in espece_list %}
+        <ul class="list-disc">
+            <li>{{ espece.nom_commun }} (<p class="italic">{{ espece.nom_scientifique  }}</p>), {{ observations }}</li>
+        </ul>
+    {%  empty %}
+        <p> Il n'y a pas d'espèces recensées ... :( </p>
+    {% endfor %}
+{% endblock content%}
