@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
 
 # Application definition
 
@@ -57,7 +60,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / "faunatrack" / "templates"
+            BASE_DIR / "faunatrack" / "templates",
+            BASE_DIR / "pythagore" / "templates"
         ],
         'APP_DIRS': True,
         'OPTIONS': {

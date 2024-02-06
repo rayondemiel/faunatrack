@@ -22,6 +22,7 @@ from faunatrack import views as fauna_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('faunatrack_admin/', admin_faunatrack.urls),
-    path('faunatrack/', fauna_views.hello_world, name='home'),
-    path('faunatrack/', include("faunatrack.urls"))
+    path('', fauna_views.home, name='home'),
+    path('faunatrack/', include("faunatrack.urls")),
+    path('accounts/', include("django.contrib.auth.urls"))
 ]
