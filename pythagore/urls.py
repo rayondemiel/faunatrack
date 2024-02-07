@@ -18,11 +18,21 @@ from django.contrib import admin
 from django.urls import path, include
 from faunatrack.admin import admin_faunatrack
 from faunatrack import views as fauna_views
+from faunatrack import api_views as api_faunatrack_views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+# API uRL
+router.register(r'especes', api_faunatrack_views.EspeceViewSet) # nom de la route pour cette classe
+router.register(r'observations', api_faunatrack_views.ObservationListCreate)
+router.register(r'project_50', api_faunatrack_views.ProjectViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('faunatrack_admin/', admin_faunatrack.urls),
     path('', fauna_views.home, name='home'),
+    path('test/', fauna_views.test_function, name='test'),
     path('faunatrack/', include("faunatrack.urls")),
-    path('accounts/', include("django.contrib.auth.urls"))
+    path('accounts/', include("django.contrib.auth.urls")),
+    path('api/', include(router.urls))
 ]

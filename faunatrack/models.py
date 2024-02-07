@@ -1,11 +1,12 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from faunatrack.validators import validate_latitude
+from django.utils.text import slugify
 
 # Create your models here.
 class Espece(models.Model):
     STATUT = [
-        ("DISPARU", "En voie de disparition"),
+        ("DISPARU", "En voie de disparition"), # pour aficher la deuxieme .get_statut_display()
         ("DANGER", "En danger"),
         ("PROTEGE", "Protégé"),
         ("INCONNU", "On sait pas!")
@@ -30,7 +31,13 @@ class Project(models.Model):
     date_debut = models.DateField(auto_now_add=True)  # ajouter automatique à la date d'aujourd'hui
     etat = models.CharField(max_length=15, choices=ETAT, default="INACT")
     #especes_observées = models.ManyToManyField(Espece, through=Observation)
-    observations = models.ManyToManyField("faunatrack.Observation", related_name="projets", null=True) # pour éviter problème recursivite comme après
+    observations = models.ManyToManyField("faunatrack.Observation", related_name="projets") # pour éviter problème recursivite comme après
+    slug = models.SlugField(blank=True)
+
+    def save(self,*args, **kwargs):
+        """ J'ai bien mangé -> j-ai-bien-mangé. Slug permet de normalisé pour url et auters"""
+        self.slug = slugify(self.nom)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         """permet de retourner la valeur souhaite dans admin au lieu de objet 0001"""

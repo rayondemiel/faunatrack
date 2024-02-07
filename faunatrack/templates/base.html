@@ -37,9 +37,22 @@
     </header>
 
     <main class="container mx-auto px-6 mt-4 h-screen">
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {% block content %}
         <!-- Le contenu spécifique à chaque page viendra ici -->
             <p id="welcome">Bonjour !</p>
+            <h1>Liste des especes en danger</h1>
+            {%  for row in table %}
+                <p>{{ row.0 }}, {{ row.1 }}  ({{ row.2 }})</p>
+            {% endfor %}
         {% endblock %}
     </main>
 

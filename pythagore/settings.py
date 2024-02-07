@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'faunatrack'
+    'faunatrack',
+    "import_export",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
